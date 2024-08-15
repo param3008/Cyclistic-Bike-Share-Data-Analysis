@@ -1,0 +1,642 @@
+---
+title: "Cyclistic Bike Share Data Analysis"
+output:
+  html_document:
+    df_print: paged
+---
+### About The Comapany
+In 2016, Cyclistic launched a successful bike-share offering. Since then, the program has grown to a fleet of 5,824 bicycles that are geotracked and locked into a network of 692 stations across Chicago. The bikes can be unlocked from one station and returned to any other station in the system anytime.
+
+Until now, *Cyclistic’s* marketing strategy relied on building general awareness and appealing to broad consumer segments. One approach that helped make these things possible was the flexibility of its pricing plans: single-ride passes, full-day passes, and annual memberships. Customers who purchase single-ride or full-day passes are referred to as casual riders. Customers who purchase annual memberships are Cyclistic members.
+
+*Cyclistic’s* finance analysts have concluded that annual members are much more profitable than casual riders. Although the pricing flexibility helps Cyclistic attract more customers, Moreno believes that maximizing the number of annual members will be key to future growth. Rather than creating a marketing campaign that targets all-new customers, Moreno believes there is a solid opportunity to convert casual riders into members. She notes that casual riders are already aware of the Cyclistic program and have chosen Cyclistic for their mobility needs.
+
+#### Scenario
+Moreno has set a clear goal: Design marketing strategies aimed at converting casual riders into annual members. In order to do that, however, the team needs to better understand how annual members and casual riders differ, why casual riders would buy a membership, and how digital media could affect their marketing tactics. Moreno and her team are interested in analyzing the Cyclistic historical bike trip data to identify trends.
+
+As a Junior Data Analyst and we are tasked with identifying trends and analyzing the pattern of customers bike usage in order to help Cyclistic achieve their goals.
+
+The key steps followed in the analysis:
+
+* Ask
+* Prepare
+* Process
+* Analyze
+* Share
+* Act
+
+### 1. Ask
+This is the first step in Data Analysis. This phase of the data analysis involves recognizing and organizing the problem, considering key stakeholders, defining the business task, identifying how the findings will help stakeholders.
+
+#### Current Problem
+Three questions will guide the future marketing program: 1. How do annual members and casual riders use Cyclistic bikes differently? 2. Why would casual riders buy Cyclistic annual memberships? 3. How can Cyclistic use digital media to influence casual riders to become members?
+
+Moreno has assigned us the first question to answer: How do annual members and casual riders use Cyclistic bikes differently?
+
+#### Business task
+As a junior data analyst we have to find the answer for the problem- ‘How do annual members and casual riders use Cyclistic's bikes differently?’ To find the answer of this question we have to analyse data and find patterns and trends of the users how they uses the cyclistic bikes.
+
+Understanding how the users uses bikes will provide more insights to help determine trends and patterns in the usage and uses over time. The key findings from this will help the marketing team as well as the executive team to design strategies to maximize the conversion into members which eventually lead to further growth of the company. 
+
+#### Key Stakeholders
+* *Lily Moreno*: The director of marketing and your manager. Moreno is responsible for the development of campaigns and initiatives to promote the bike-share program. These may include email, social media, and other channels.
+
+* *Cyclistic marketing analytics team*: A team of data analysts who are responsible for collecting, analyzing, and reporting data that helps guide Cyclistic marketing strategy. You joined this team six months ago and have been busy learning about Cyclistic’s mission and business goals—as well as how you, as a junior data analyst, can help Cyclistic achieve them.
+
+* *Cyclistic executive team*: The notoriously detail-oriented executive team will decide whether to approve the recommended marketing program. The marketing analyst team wants to understand how the casual riders and members use the bikes differently and how they can use that to design marketing strategies aimed at converting casual riders into annual members. The primary stakeholders of the company are the director of marketing and the Cyclistic Executive Team.
+
+### 2: PREPARE
+
+This is the second most important phase of data analysis. The prepare phase involves collection of relevant data from different sources also prepare the data for further analysis by identifying matrices.
+
+**Data Source**
+
+Cyclistic’s historical trip data to analyze and identify trends.We have [Downloaded the previous year 12 months of Cyclistic trip data here](https://divvy-tripdata.s3.amazonaws.com/index.html). (Note: The datasets have a different name because Cyclistic is a fictional company. For the purposes of this case study, the datasets are appropriate and will enable us to answer the business questions. The data has been made available by Motivate International Inc. under this [license](https://divvybikes.com/data-license-agreement).) This is public data that we can use to explore how different customer types are using Cyclistic bikes.
+
+**Dataset** here is a *CSV (comma-separated values)* file containing details of every ride logged by Cyclistic customers including casual and paid members. However, only data from the previous year *i.e. 2023 from 1st January to 31st December* will be used for this project.
+
+##### The .CSV Files are---
+
+* *X202301_divvy_tripdata.CSV*
+* *X202302_divvy_tripdata.CSV* 
+* *X202303_divvy_tripdata.CSV* 
+* *X202304_divvy_tripdata.CSV* 
+* *X202305_divvy_tripdata.CSV* 
+* *X202306_divvy_tripdata.CSV* 
+* *X202307_divvy_tripdata.CSV *
+* *X202308_divvy_tripdata.CSV *
+* *X202309_divvy_tripdata.CSV *
+* *X202310_divvy_tripdata.CSV *
+* *X202311_divvy_tripdata.CSV *
+* *X202312_divvy_tripdata.CSV*
+
+
+##### Name of the columns included in the data 
+
+**[1] "ride_id"           [2] "rideable_type"      [3] "started_at"** 
+
+**[4] "ended_at"          [5] "start_station_name" [6] "start_station_id"**  
+
+**[7] "end_station_name"  [8] "end_station_id"     [9] "start_lat"** 
+
+**[10] "start_lng"         [11] "end_lat"           [12] "end_lng"** 
+
+**[13] "member_casual"**
+
+#### Column Details:
+
+* *ride_id: Unique ID assigned with each ride*
+* *rideable_type: Type of bicycle used on each ride*
+* *started_at: Date and time for start of each trip*
+* *ended_at: Date and time for end of each trip*
+* *start_station_name: Name of the station where each journey started from*
+* *start_station_id: ID of the station where each journey started from*
+* *end_station_name: Name of the station where each trip ended at*
+* *end_station_id: ID of the station where each trip ended at*
+* *start_lat: Latitude of each starting station*
+* *start_lng: Longitude of each starting station*
+* *end_lat: Latitude of each ending station*
+* *end_lng: Longitude of each ending station*
+* *member_casual: Type of membership of each rider*
+
+##### ROCCC Analysis to ensure data credibility:
+
+* Reliability- The data is reliable as it has large number of rows which contains essential information to Analyse the data.
+* Original —The data is original as we can locate the primary source of the data.The data has been made available by Motivate International Inc. under this [license](https://divvybikes.com/data-license-agreement)
+* Comprehensive — This data contains all the necessary information and does not have missing columns which are necessary to answer the question. This data collected through the logged system so the data is also free from human error. 
+* Current — Data is constantly updating and source refreshed regularly and we have used latest full year data for the analysis.
+* Cited — the source has been vetted.
+
+
+
+#### Limitation of data
+
+Data-privacy issues prohibit you from using riders’ personally identifiable information. This means that you won’t be able to connect pass purchases to credit card numbers to determine if casual riders live in the Cyclistic service area or if they have purchased multiple single passes.Also thsi data doesn't contain gender related information which can limit to identify the targeted segment based on gender.
+
+
+*Still, the data provided here is maintaining it's integrity and reliability and are sufficient to provide comprehensive insights for the team's analysis and answer the question.*
+
+
+##### Preparing RStudio-- installing packages and uploading files into dataframes
+
+Create a new R files and installed necessary packages and libraries liketidyverse, lubridate , readr, janitor, skimr and ggplot2.
+
+```{r}
+library(tidyverse)
+library(readr)
+library(janitor)
+library(skimr)
+library(dplyr)
+library(ggplot2)
+library(lubridate)
+```
+
+Next we read and upload the data using *read.CSV()* function.
+
+```{r}
+X202301_divvy_tripdata <- read_csv("C:/Users/purni/OneDrive/Desktop/Cyclistic Bike share/Latest_Dataset/202301-divvy-tripdata.csv")
+X202302_divvy_tripdata <- read_csv("C:/Users/purni/OneDrive/Desktop/Cyclistic Bike share/Latest_Dataset/202302-divvy-tripdata.csv")
+X202303_divvy_tripdata <- read_csv("C:/Users/purni/OneDrive/Desktop/Cyclistic Bike share/Latest_Dataset/202303-divvy-tripdata.csv")
+X202304_divvy_tripdata <- read_csv("C:/Users/purni/OneDrive/Desktop/Cyclistic Bike share/Latest_Dataset/202304-divvy-tripdata.csv")
+X202305_divvy_tripdata <- read_csv("C:/Users/purni/OneDrive/Desktop/Cyclistic Bike share/Latest_Dataset/202305-divvy-tripdata.csv")
+X202306_divvy_tripdata <- read_csv("C:/Users/purni/OneDrive/Desktop/Cyclistic Bike share/Latest_Dataset/202306-divvy-tripdata.csv")
+X202307_divvy_tripdata <- read_csv("C:/Users/purni/OneDrive/Desktop/Cyclistic Bike share/Latest_Dataset/202307-divvy-tripdata.csv")
+X202308_divvy_tripdata <- read_csv("C:/Users/purni/OneDrive/Desktop/Cyclistic Bike share/Latest_Dataset/202308-divvy-tripdata.csv")
+X202309_divvy_tripdata <- read_csv("C:/Users/purni/OneDrive/Desktop/Cyclistic Bike share/Latest_Dataset/202309-divvy-tripdata.csv")
+X202310_divvy_tripdata <- read_csv("C:/Users/purni/OneDrive/Desktop/Cyclistic Bike share/Latest_Dataset/202310-divvy-tripdata.csv")
+X202311_divvy_tripdata <- read_csv("C:/Users/purni/OneDrive/Desktop/Cyclistic Bike share/Latest_Dataset/202311-divvy-tripdata.csv")
+X202312_divvy_tripdata <- read_csv("C:/Users/purni/OneDrive/Desktop/Cyclistic Bike share/Latest_Dataset/202312-divvy-tripdata.csv")
+```
+
+
+```{r}
+colnames(X202301_divvy_tripdata)
+```
+
+### 3. Process
+
+This is the third phase of data analysis  and this process even considered as **Data From Darty to Clean**. This cleaning and transformation step involves finding errors, inconsistency and inccuracies in data and  avoid and filter those to get the clean data which are important to get an accurate result in analysi. Otherwise, this can skew the results beacause of the *Bad Data* issue.  This process will ensure that the results are accurate and none of the parameter affect the credibility of the analysis.
+
+A wide range of tools can process datasets and return us clean data. Programs like spreadsheets(Excel, Google Sheets) and programming languages like SQL, Python, or R. It depends on the user's preference and proficiency with the tool they use. 
+
+The Cyclistic historical bike trip data is a large dataset and we will continue with **R Programming Language**. R contains a large number of libraries which can help up clean and processing a large set of data seamlessly.
+
+
+#### A. Data Cleaning
+
+Data cleaning involves identifying errors in a dataset and then fixing or removing it. Data errors may include incorrect, duplicate, or null , negative and zero values.
+
+For better works with data we will first *Bind the data* into one as all data contains same column. This will help up to work on single dataset to take all the actions which are necessary to explain.
+
+```{r}
+data_df <- rbind(X202301_divvy_tripdata, X202302_divvy_tripdata, X202303_divvy_tripdata,X202304_divvy_tripdata, X202305_divvy_tripdata, X202306_divvy_tripdata, X202307_divvy_tripdata, X202308_divvy_tripdata, X202309_divvy_tripdata, X202310_divvy_tripdata, X202311_divvy_tripdata, X202312_divvy_tripdata)
+print(data_df)
+```
+
+Now, Will use the function str() and glimpse(). str() provides a compact, human-readable summary of an object’s structure, including its type and content. glimpse() (from the dplyr package) offers a similar overview but in a transposed format, displaying data horizontally to enhance readability, especially for data frames and tibbles.
+
+```{r}
+str(data_df)
+glimpse(data_df)
+```
+
+**Renaming** column names for better visibility and accessibility of Data.
+
+```{r}
+new_df <- data_df %>%
+  dplyr::rename('trip_id'= ride_id
+                ,'bike_type' = rideable_type
+                ,'start_time' = started_at 
+                ,'end_time' = ended_at
+                ,'starting_point' = start_station_name
+                ,'start_station_id' = start_station_id
+                ,'ending_point' = end_station_name 
+                ,'end_station_id' = end_station_id 
+                ,'user_type' = member_casual)
+print(new_df)
+colnames(new_df)
+```
+
+Now We are Looking for **NA or null values** as Null values can distort data analysis, leading to inaccurate results, biased models, and reduced statistical power. They can complicate calculations, visualizations, and reduce the quality of insights derived.
+
+```{r}
+sum(is.na(new_df))
+```
+
+**Removing Null Values from the Dataset**
+
+```{r}
+new_df_1 <- new_df[!(is.na(new_df$start_station_id)),]
+sum(is.na(new_df_1))
+new_df_2 <- na.omit(new_df_1)
+sum(is.na(new_df_2))
+```
+
+*Removing some unnecessary column* as they are not needed in this analysis or to find the answer of the given question.
+
+```{r}
+data_new <- new_df_2 %>%
+  select(-c(start_lat,start_lng,end_lat,end_lng))
+print(data_new)
+colnames(data_new)
+```
+
+#### B. Data Transformation
+
+*Add a new date, day, month, year and time column separately.*
+
+```{r}
+data_new$date <- as.Date(data_new$start_time)
+data_new$month <- format(as.Date(data_new$start_time),"%m")
+data_new$day <- format(as.Date(data_new$start_time),"%d")
+data_new$day_of_the_week <- format(as.Date(data_new$start_time),"%A")
+data_new$year <- format(as.Date(data_new$start_time),"%y")
+data_new$month_name <- lubridate::month(data_new$start_time, label = TRUE, abbr = FALSE)
+data_new$start_time1 <- format(as.POSIXct(data_new$start_time),
+                               format = "%H:%M:%S")
+data_new$end_time1 <- format(as.POSIXct(data_new$end_time),
+                             format = "%H:%M:%S")
+data_new$end_date <- as.Date(data_new$end_time)
+```
+
+*Add a calculated colums for the ride length for further calculations.*
+
+```{r}
+data_new$ride_length <- difftime(data_new$end_time,data_new$start_time)
+print(data_new)
+```
+
+*Selected Required column for the analysis.*
+
+```{r}
+df_1 <- data_new %>% select(trip_id,bike_type,date,start_time1,end_date,end_time1,ride_length,starting_point,start_station_id,ending_point,end_station_id,user_type,month_name,year,day_of_the_week )
+print(df_1)
+```
+
+*Renaming columns for better readability. *
+
+```{r}
+clean_data <- df_1 %>%
+  dplyr::rename('trip_id'= trip_id
+                ,'bike_type' = bike_type
+                ,'start_date' = date
+                ,'start_time' = start_time1
+                ,'end_date' = end_date
+                ,'end_time' = end_time1
+                ,'ride_length' = ride_length
+                ,'starting_point' = starting_point
+                ,'start_station_id' = start_station_id
+                ,'ending_point' = ending_point
+                ,'end_station_id' = end_station_id 
+                ,'user_type' = user_type
+                ,'month' = month_name
+                ,'year' = year
+                ,'day' = day_of_the_week)
+print(clean_data)
+```
+
+
+```{r}
+colnames(clean_data)
+```
+
+**Removing '0', '-ve' and null values** *from ride length and We will get clean and transformed data. These outliers can skew the analysis if not addressed before analysis.*
+
+```{r}
+clean_data$ride_length[clean_data$ride_length < 0] <- NA
+sum(is.na(clean_data))
+final_data <- na.omit(clean_data)
+sum(is.na(final_data))
+data_final <- final_data[final_data$ride_length != 0, ]
+print(data_final)
+```
+
+#### C. Data manipulation
+
+**Checking for unique values in the selected columns for better understanding the data for further analysis. To see the different types of values in the column, we can use the unique() function on that particular column.In this case we see there are 3 kinds of bikes ("electric_bike" "classic_bike"  "docked_bike") and two kind of user type ("member" "casual").**
+
+```{r}
+print(unique(data_final$bike_type))
+print(unique(data_final$user_type))
+```
+
+### 4. Analyse
+
+This is the fourth and most important phase of Data Analysis. Where we analyze the data based on the clean data to to draw concussions based on observation. The main goal in this phase is to find trends, patterns and relationship between data that will help to solve the business task. Here, the data is further sorted and formatted to understand how different groups work individually and in relation to one another to draw powerful insight from the data. This phase is all about finding what story the data is trying to tell, to connect one data point to another to explain the story .As this phase involves drawing conclusions based on observations, therefore, an essential skill for this phase is to be analytical, creative, and curious.A Data Analyst is like a Detective who try to understand the pattern and connect the dots to find the answer. 
+
+##### Key Matrices
+
+Here we are gonna find the Min, max and average ride length for a particular group. Which can be considered as a key matrices which can help to take decision regarding the business.
+
+*Here we can see the average member ride is 727.9563 secs  and average casual user ride is 1376.4119 secs.*
+```{r}
+aggregate(data_final$ride_length ~ data_final$user_type, FUN = mean)
+
+aggregate(data_final$ride_length ~ data_final$user_type, FUN = median)
+
+aggregate(data_final$ride_length ~ data_final$user_type, FUN = max)
+
+aggregate(data_final$ride_length ~ data_final$user_type, FUN = min)
+
+```
+
+*To get the analysis answer accurately we Ordered Days based on Weekdays and Months based on Month, so the arragment of the result would be accurate*
+
+```{r}
+data_final$day <- ordered(data_final$day, 
+                          levels = c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"))
+data_final$month <- ordered(data_final$month, 
+                            levels = c("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"))
+```
+
+Creating table analysis for the user type based on the average ride length and total number of  rides which was arranged by the weekdays. Which will help us to know the total number of rides happening daily by the different user types.
+
+
+```{r}
+number_of_rides <- data_final %>%
+  group_by(user_type, day) %>%
+  summarise(total_rides = n(), avg_ride_sec = mean(ride_length)) %>%
+  arrange(user_type, day)
+print(number_of_rides)
+```
+
+*Here, we can see for Casual riders Saturday and Sunday is the most busiest. Daily ride count and also the average ride length is the highest for the weekends. While for the mebers is kind of opposite maximum number of ride happened on weekdays but the maximum average ride length remain stand with the Weekends*
+
+
+Creating table analysis for the user type based on the average ride length and total number of  rides which was arranged by Months. Which will help us to know the total number of rides and average ride length happening mothly by different user types.
+
+```{r}
+number_of_rides_month_wise <- data_final %>%
+  group_by(user_type, month) %>%
+  summarise(total_rides = n(), avg_ride_sec = mean(ride_length)) %>%
+  arrange(user_type, month)
+print(number_of_rides_month_wise)
+```
+
+*Here, we can see for both the users Spring and Summer Season is the most busiest. Average ride count and also the average ride length is the highest for this season.*
+
+Updating library "ggplot2" for creating charts.
+
+```{r}
+library(ggplot2)
+```
+
+Creating a bar chart to display the total number of rides on day basis which was arranged by the user type.
+
+```{r}
+ride_counts <- data_final %>%
+  group_by(day, user_type) %>%
+  summarise(count = n())
+ride_count_bar <- ggplot(ride_counts, aes(x = day, y = count, fill = user_type)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Number of Rides by Weekday and Member Type",
+       x = "Day of the Week",
+       y = "Number of Rides",
+       fill = "User Type") +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    plot.title = element_text(hjust = 0.5)
+  )
+print(ride_count_bar)
+
+```
+
+*In the above Bar graph we can see weekdays are more busiest for the members but weekends ate the more busiest for the casual riders.*
+
+Printing a line chert to display total riding data over time based on the user types Which was arranged by month.
+
+```{r}
+ride_counts_per_Month <- data_final %>%
+  group_by(month, user_type) %>%
+  summarise(count = n())
+ride_over_time_line_chart <- ggplot(ride_counts_per_Month, aes(x = month, y = count, color = user_type, group = user_type)) +
+  geom_line(linewidth = 1, linetype = "solid") +
+  geom_point(size = 3)
+labs(title = "Rides over time",
+     x = "month",
+     y = "Number of Rides",
+     color = "user_type") +
+  theme_minimal()
+ride_over_time_line_chart + theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+
+*In the above line chart we can see there was a certain spike in rides in the month of July-August for both users and members(for casuals around 2.4 Lakh,for members 3.5 Lakh which is around 5.5% and 8.1% respectively ) and the date closer to December there was sharp decline we can see in the ride counts for both casual and members.*
+
+Creating a Bar chart to display the average ride length by  weekdays based on user type. Which will give us some insights of day wise.
+
+```{r}
+ride_length_avg <- data_final %>%
+  group_by(day, user_type) %>%
+  summarise(total_rides = n(), avg_ride_length = mean(ride_length))
+ride_length_over_day_bar <- ggplot(ride_length_avg, aes(x = day, y = avg_ride_length, fill = user_type)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "length of Rides by Weekday and Member Type",
+       x = "Day of the Week",
+       y = "Avg length of Rides",
+       fill = "User Type") +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    plot.title = element_text(hjust = 0.5)
+  )
+print(ride_length_over_day_bar)
+
+```
+
+*In the above Bar chart it has been seen that for highest ride length average for Casual and Member users happened on Weekends.*
+
+
+Calculating the total number of rides happened during the analysis year and the percentage of user who used the ride.
+And the analysis shows around **4.3 million ride** took place bwtween the 1st Jan, 2023 to 31st Dec, 2023. On that number around **1,5 million casual rides** happened which is almost **35%** of the total rides. Also data reveals that around **2.7 million member rides** took place which contributes around **65%** of the total rides.
+```{r}
+total_ride <- data_final %>% 
+  group_by(user_type) %>% 
+  summarise(num_rides = n()) %>% 
+  mutate(percent_total_rides = num_rides/sum(num_rides) * 100)
+print(total_ride)
+```
+
+*Creating a Pie chart for displaying the percentages of user based on the total number of rides*
+
+```{r}
+user_pie <- ggplot(data = total_ride, aes(x = "", y = percent_total_rides, fill = user_type)) +
+  geom_bar(stat = "identity", width = 1) +
+  geom_label(aes(label = paste0(round(percent_total_rides, 1), "%")), 
+             position = position_stack(vjust = 0.5),show.legend = FALSE) +
+  coord_polar(theta = "y") +
+  labs(title = "Distribution of Rides by user_type",
+       fill = "User Type") +
+  theme_void() +
+  theme(legend.position = "right")
+print(user_pie)
+```
+
+We have seen Cyclistic have different bikes available for the users. Users also used different types of bikes as per their choices. There 3 kinds of bikes available at the stop and those bikes are- "electric_bike" "classic_bike" and  "docked_bike". Now , we will create a Bar chart to display the data of different bike types which was used by different user groups for their ride.
+
+```{r}
+ride_with_bike <- data_final %>%
+  group_by(bike_type, user_type) %>%
+  summarise(total_rides = n(), avg_ride_length = mean(ride_length))
+ggplot(ride_with_bike, aes(x = bike_type, y = total_rides, fill = user_type)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Rides by bike and Member Type",
+       x = "Type of Bike",
+       y = "Total no of Rides",
+       fill = "User Type") +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    plot.title = element_text(hjust = 0.5)
+  )
+
+```
+
+*In the above Bar Chart we can see Classic bike was most used bike for both user categories. So Classic Bike is the most famous bike for both categories followed by electric bike. Surprisingly docked bike only used by the casual users with very small number.*
+
+Now we will create Column Chart To display the average ride length for casual and member riders.
+
+```{r}
+mean_ride_times <- data_final %>% 
+  group_by(user_type) %>% 
+  summarise(mean_ride_time_sec = mean(ride_length), max_ride_time=max(ride_length), 
+            min_ride_time=min(ride_length))
+print(mean_ride_times)
+ggplot(data=mean_ride_times) + 
+  geom_col(mapping=aes(x=user_type, y=mean_ride_time_sec,fill=user_type)) +
+  geom_text(aes(x=user_type, y=mean_ride_time_sec, label=round(mean_ride_time_sec, 2)),vjust=1) +
+  labs(title = "Average Ride Times by Usertype", x="Usertype",y="Avg. Ride Time(Sec)")
+```
+
+*In the above Chart it has been seen that Causal Rider ride bikes over 22 min 56 sec on an average And Member Rider rides around 12 min 7 sec on an average ride time.*
+
+
+There are almost 1534 unique stations are there. Now we would like to find the top 5 most busiest station for each user type. It will help us to understand the load of a particular station and future possibility. We are creating a Table for displaying the data of top 5 station with total number of rides based user type.
+
+```{r}
+Start_station <- data_final %>% 
+  group_by(bike_type, user_type, starting_point) %>% 
+  select(user_type, starting_point, bike_type) %>% 
+  summarise(total_rides = n())
+print(Start_station)
+top_5_stations <- Start_station %>%
+  group_by(user_type) %>%
+  top_n(5, total_rides) %>% 
+  arrange(user_type, desc(total_rides))
+top_5_stations
+```
+
+Creating a Bar Chart to display the top 5 Stations for the Casual Riders.
+
+```{r}
+top_5_stations %>% 
+  filter(user_type == "casual") %>% 
+  ggplot(aes(x=starting_point, y=total_rides,fill="All Stations")) + 
+  geom_bar(stat = "identity",) +
+  labs(title = "Top 5 Stations by total_rides (Casual)",
+       x = "Start Station", y = "Total Number of Rides") +
+  geom_text(aes(x=starting_point,y=total_rides,label=total_rides),vjust=1.5,)+
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+*In the above bar chart it is clearly visible that "Streeter Dr & Grand Ave" is the top station for the casual riders with total number of rides 28982 followed by "DuSable Lake Shore Dr & Monroe St" with number of rides 18806.*
+
+Creating a Bar Chart to display the top 5 Stations for the Member Riders.
+
+```{r}
+top_5_stations %>% 
+  filter(user_type == "member") %>% 
+  ggplot(aes(x=starting_point, y=total_rides,fill="All Stations")) + 
+  geom_bar(stat = "identity",) +
+  labs(title = "Top 5 Stations by total_rides (member)",
+       x = "Start Station", y = "Total Number of Rides") +
+  geom_text(aes(x=starting_point,y=total_rides,label=total_rides),vjust=1.5,)+
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+
+*In the above bar chart it is clearly visible that "Clark St & Elm St " is the top station for the casual riders with total number of rides 16141 followed by "Kingsbury St & Kinzie St" with number of rides 15681.*
+
+Now we will Calculating the number of rides and and percentage of total rides taken with each type of bike for casual riders.
+
+```{r}
+casual_ride <- data_final %>% 
+  filter(user_type == "casual") %>% 
+  group_by(bike_type) %>% 
+  summarise(num_rides = n()) %>% 
+  mutate(percent_total_rides = num_rides/sum(num_rides) * 100)
+print(casual_ride)
+```
+
+
+Printing a Pie chart displaying percentages of each bike used for casual riders.
+
+```{r}
+casual_pie <- ggplot(data = casual_ride, aes(x = "", y = percent_total_rides, fill = bike_type)) +
+  geom_bar(stat = "identity", width = 1) +
+  geom_label(aes(label = paste0(round(percent_total_rides, 1), "%")), 
+             position = position_stack(vjust = 0.5),show.legend = FALSE) +
+  coord_polar(theta = "y") +
+  labs(title = "Distribution of Rides by bike_type (Casual)",
+       fill = "Rideable Type") +
+  theme_void() +
+  theme(legend.position = "right")
+print(casual_pie)
+
+```
+
+*From the above Pie chart we can find that 57% of rides happened for casual riders with 'Classic Bike' with around 8.7 Lakh total number of rides which is followed by 'Electric Bike' which is accounted for 38% with around 5.8 Lakh Rides .*
+
+
+Next we will Calculating the number of rides and and percentage of total rides taken with each type of bike for casual riders.
+
+```{r}
+member_ride <- data_final %>% 
+  filter(user_type == "member") %>% 
+  group_by(bike_type) %>% 
+  summarise(num_rides = n()) %>% 
+  mutate(percent_total_rides = num_rides/sum(num_rides) * 100)
+print(member_ride)
+
+```
+
+
+Printing a Pie chart displaying percentages of each bike used for Member riders.
+
+```{r}
+member_pie <- ggplot(data = member_ride, aes(x = "", y = percent_total_rides, fill = bike_type)) +
+  geom_bar(stat = "identity", width = 1) +
+  geom_label(aes(label = paste0(round(percent_total_rides, 1), "%")), 
+             position = position_stack(vjust = 0.5),show.legend = FALSE) +
+  coord_polar(theta = "y") +
+  labs(title = "Distribution of Rides by bike_type (member)",
+       fill = "Rideable Type") +
+  theme_void() +
+  theme(legend.position = "right")
+print(member_pie)
+
+```
+
+*From the above Pie chart we can find that 57% of rides happened for member riders with 'Classic Bike' with around 1.8 million total number of rides which is followed by 'Electric Bike' which is accounted for 38% with around 9.8 Lakh Rides. Interestingly no 'Docket Bike' has been used by Member riders.*
+
+
+### 5. Share 
+This step is also known as Visualizing Insights. Data visualization is only the graphical representation of data. Presenting our objective with data through insights is an essential step to convey the insights which required data storytelling. One way to achive this is by Creating a  dashboard.
+
+A dashboard is a user interface that visually displays key information and metrics, allowing users to monitor, analyze, and manage data at a glance. Typically used in business, it consolidates data from various sources into a single view, enabling quick decision-making and performance tracking. Dashboards often feature graphs, charts, and real-time data updates.
+
+A dashboard can be shared with others to convey the story that data resembles. Receivers can also look at the dashboard to understand the story. By understanding the story the Stakeholders can take necessary decision.
+
+### 6. ACT
+This is the last Phase of Data Analysis process which is called Act means Solving the Problem
+In this phase, we will use all the previous analysis results what we have learned earlier to arrive at a conclusion. We will also share our recommendations to the stakeholders on how to solve the business problem and help make data-driven decisions.
+
+#### Focus Areas and recommendations:
+
+**a. Seasonal:** We can see there is an increase demand casual riders during Summer and spring season which is an indication of opportunity to do advertisement campaigns and promotional activities for the targeted audience.
+
+**Recommendation:**
+
+* We can launch email campaign and campaign through social channels and  in late Winter and run it through Summer for the Casual Members.
+* Availability of offers and promotions for early bird signups and memberships at discounted cost for new members. Which can lure the customers to sign up for the membership.  
+* Benefits of a member Riders vs Casual Riders need to be conveyed properly to the Casual Customers.
+* Discount on Auto- Renewal and referral system can also help to gain new customer as well as retain the existing one.
+* Provide 3 Casual Rides at discounted price and than hike the price for casual riders along with send the promotions and offers for membership at a discounted price.
+
+**b. Users Uses Pattern:**It has been seen that member riders uses there bike on weekdays with a consistent average ride length but the Casual Riders uses bike mostly on weekends with around double the average ride length. It can understand that they use this for entertainment basis.
+
+**Recommendations:**
+
+* Introduce weekend passes tailored with weekend activities and entertainment. It can also be introduced weekend passes members can refer their partner the weekend passes. By doing so Member and partner both will get various entertainment and activity offers like free passes for a particular venue, restaurants, Movie and Disco discounts etc.
+* Highlight advantages of becoming annual member over Weekend pass holder.
+* We can also promote physical fitness, lowers carbon emissions, reduce traffic, contributing to a healthier lifestyle and a more sustainable urban environment to fill the gap of Weekdays rides by the casual riders.
+* Digital and Social Media marketing can be used to promote the passess. Also Cyclistic can promote it through email campaign.
+
+**c. Other Recommendations:**
+
+* Cyclistic can focus on the top 10 stations around the popular tourist sites and offer discounts by partnering with local businesses.
+* Introduce membership options for Short-term durations like one-week , one-month and three-months.
+* Introduce mobile applications for frequent riders with the bonus coin system. By collecting coins they can gain a free ride.
